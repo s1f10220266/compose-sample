@@ -17,7 +17,11 @@ Docker composeでDjangoのアプリケーションを立ち上げる
     作業ディレクトリ直下にdocker-compose.yamlを作成
     docker-compose.yamlがあるディレクトリで一度djangoコンテナを立ち上げる
         $ docker compose run django django-admin startproject config .
-        => yaml内のdjangoサービスに基づいてコンテナを起動、"django-admin startproject config ."を実行
+        => yaml内のdjangoサービスに基づいてコンテナを起動、コンテナ上で"django-admin startproject config ."を実行
+        (Linuxの場合,ファイルの所有者を現在ログインしているユーザに変更: sudo chown -R $USER:$USER .)
+    config/settings.pyを編集後、djangoコンテナを起動
+        $ docker compose up -d
+    
     
     postgreSQLコンテナ
     nginxコンテナ

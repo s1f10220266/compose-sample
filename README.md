@@ -21,9 +21,29 @@ Docker composeでDjangoのアプリケーションを立ち上げる
         (Linuxの場合,ファイルの所有者を現在ログインしているユーザに変更: sudo chown -R $USER:$USER .)
     config/settings.pyを編集後、djangoコンテナを起動
         $ docker compose up -d
+        起動後、"http://127.0.0.1:8000"にアクセスするとdjangoのアプリが確認できる
+    一度コンテナを削除
+        $ docker compose down
     
     
     postgreSQLコンテナ
+        docker-compose.yamlに追記
+        config/settings.py-DATABASESを編集してデータベースへの接続
+        イメージのビルド
+            $ docker compose build
+        djangoコンテナとdbコンテナを起動
+            $ docker compose up -d
+        dbコンテナに入り、マイグレーションを実行
+            $ docker compose exec django python managa.py migrate --noinput
+            *--noinputを指定することでコマンド実行中に入力を要求しない
+        dbコンテナに入り、postgreSQLに接続
+            $ docker compose exec db psql -U learner -d testdb
+            データベースを確認
+                $ \dt
+            データベースからでる
+                $ \q
+
+
     nginxコンテナ
 2. コンテナ用のイメージを作成
 3. コンテナを展開

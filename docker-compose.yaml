@@ -25,7 +25,7 @@ services:
       - 8080:80
     volumes:
       - ./nginx:/etc/nginx/conf.d
-      - ./src/collected_static:/static
+      - ./src/collected_static/admin:/static
     depends_on:
       - django
 

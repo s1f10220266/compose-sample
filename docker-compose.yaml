@@ -1,0 +1,9 @@
+version: "3.8" #Docker Composeファイルの形式のバージョンを指定
+services:
+  django:
+    build: ./django #イメージを作成する際に./django下にあるDockerfileを参照
+    command: uvicorn config.asgi:application --host 0.0.0.0 --port 8000 #起動時に実行される規定のコマンド
+    ports:
+      - 8000:8000
+    volumes:
+      - ./src:/code #./srcをコンテナ内の/codeからアクセス可能

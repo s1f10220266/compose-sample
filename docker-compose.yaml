@@ -17,7 +17,7 @@ services:
         #PostgreSQLのイメージでは/var/lib/postgresql/dataがデータの保存場所として決められている
     environment:
       - POSTGRES_USER=learner #ユーザ名を指定
-      - POSTGRES_PASSWORD=passwoed #パスワードを指定
+      - POSTGRES_PASSWORD=password #パスワードを指定
       - POSTGRES_DB=testdb #データベース名を指定
 
 volumes:

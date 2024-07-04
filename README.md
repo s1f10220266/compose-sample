@@ -29,12 +29,12 @@ Docker composeでDjangoのアプリケーションを立ち上げる
     postgreSQLコンテナ
         docker-compose.yamlに追記
         config/settings.py-DATABASESを編集してデータベースへの接続
-        イメージのビルド
+        docker-compose.yamlに従ってイメージのビルド
             $ docker compose build
         djangoコンテナとdbコンテナを起動
             $ docker compose up -d
-        dbコンテナに入り、マイグレーションを実行
-            $ docker compose exec django python managa.py migrate --noinput
+        djangoコンテナに入り、マイグレーションを実行
+            $ docker compose exec django python manage.py migrate --noinput
             *--noinputを指定することでコマンド実行中に入力を要求しない
         dbコンテナに入り、postgreSQLに接続
             $ docker compose exec db psql -U learner -d testdb
@@ -45,5 +45,10 @@ Docker composeでDjangoのアプリケーションを立ち上げる
 
 
     nginxコンテナ
+    *docker-comopose.yamlに誤りがあった場合
+        一度コンテナを全て削除する
+        $ docker compose down -v
+            -vオプションをつっけることでボリュームごと削除する
+        もう一度イメージのビルドからやり直す
 2. コンテナ用のイメージを作成
 3. コンテナを展開

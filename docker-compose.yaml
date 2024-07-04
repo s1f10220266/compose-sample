@@ -3,8 +3,8 @@ services:
   django:
     build: ./django #イメージを作成する際に./django下にあるDockerfileを参照
     command: uvicorn config.asgi:application --host 0.0.0.0 --port 8000 #起動時に実行される規定のコマンド
-    ports:
-      - 8000:8000
+    expose: #コンテナ内部でのみ公開するポート、ホストマシンでは公開されない
+      - 8000
     volumes:
       - ./src:/code #./srcをコンテナ内の/codeからアクセス可能
     depends_on: #services:dbが起動した後にservices:djangoを起動する
@@ -19,6 +19,15 @@ services:
       - POSTGRES_USER=learner #ユーザ名を指定
       - POSTGRES_PASSWORD=password #パスワードを指定
       - POSTGRES_DB=testdb #データベース名を指定
+  nginx:
+    image: nginx:latest
+    ports:
+      - 8080:80
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./src/collected_static:/static
+    depends_on:
+      - django
 
 volumes:
   postgres-data: #データ永続化

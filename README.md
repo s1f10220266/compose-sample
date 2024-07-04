@@ -45,8 +45,11 @@ Docker composeでDjangoのアプリケーションを立ち上げる
 
 
     nginxコンテナ
-        nginxディレクトリ、nginx/default.conf、src/collected_staticを作成
-        
+        nginxディレクトリ、nginx/default.confを作成
+        djangoのcollectstaticを実行して静的ファイルを指定ディレクトリに集約
+            $ docker compose run django python manage.py collectstatic
+            => src/collected_staticディレクトリが作成され、その下に静的ファイルが集約される
+
 
 
     *docker-comopose.yamlに誤りがあった場合

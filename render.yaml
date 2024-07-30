@@ -8,9 +8,8 @@ services:
     plan: free
     branch: main
     env: docker
-    dockerfilePath: ./django/Dockerfile
-    buildCommand: ""
-    startCommand: ""
+    buildCommand: "docker-compose build"
+    startCommand: "docker-compose up"
     envVars:
       - key: DATABASE_URL
         fromDatabase:

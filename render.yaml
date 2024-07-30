@@ -1,16 +1,20 @@
 databases:
   - name: sample-db
     plan: free
+    databaseName: sampledb
+    user: djangotest_sample
 
 services:
   - type: web
-    name: docker-compose-django-sample
+    name: django-test
+    env: python
     plan: free
     branch: main
-    env: docker
-    buildCommand: "docker compose build"
-    startCommand: "docker compose up -d"
+    buildCommand: "./build.sh"
+    startCommand: "uvicorn config.wsgi:application"
     envVars:
+      - key: PYTHON_VERSION
+        value: 3.8.2
       - key: DATABASE_URL
         fromDatabase:
           name: sample-db
@@ -19,3 +23,5 @@ services:
         generateValue: true
       - key: DJANGO_SETTINGS_MODULE
         value: config.production
+      - key: WEB_CONCURRENCY
+        value: 4

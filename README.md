@@ -49,8 +49,7 @@ Docker composeでDjangoのアプリケーションを立ち上げる
         djangoのcollectstaticを実行して静的ファイルを指定ディレクトリに集約
             $ docker compose run django python manage.py collectstatic
             => src/collected_staticディレクトリが作成され、その下に静的ファイルが集約される
-
-
+        * config/settings.py ALLOWED_HOSTSに"backend"を追加しないとdjangoでエラーが出る
 
     *docker-comopose.yamlに誤りがあった場合
         一度コンテナを全て削除する
@@ -58,4 +57,9 @@ Docker composeでDjangoのアプリケーションを立ち上げる
             -vオプションをつっけることでボリュームごと削除する、データベースのデータも消えてしまうことに注意
         もう一度イメージのビルドからやり直す
 2. コンテナ用のイメージを作成
+    $ docker compose build
 3. コンテナを展開
+    $ docker compose up -d
+
+djangoが起動していることを確認し、コンテナを削除する
+    $ docker container down

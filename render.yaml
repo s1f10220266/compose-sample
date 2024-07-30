@@ -1,0 +1,22 @@
+databases:
+  - name: sample-db
+    plan: free
+
+services:
+  - type: web
+    name: docker-compose-django-sample
+    plan: free
+    branch: main
+    env: docker
+    dockerComposeYamlPath: ./docker-compose.yaml
+    buildCommand: ""
+    startCommand: ""
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: sample-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.production

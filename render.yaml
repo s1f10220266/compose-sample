@@ -8,8 +8,8 @@ services:
     plan: free
     branch: main
     env: docker
-    buildCommand: "docker-compose build"
-    startCommand: "docker-compose up"
+    buildCommand: "docker compose build"
+    startCommand: "docker compose up -d"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
